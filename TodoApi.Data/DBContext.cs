@@ -10,6 +10,6 @@ namespace TodoApi.Data
         {
         }
 
-        public DbSet<TodoItem> TodoItems { get; set; }
+        public virtual DbSet<TodoItem> TodoItems { get; set; }
     }
 }

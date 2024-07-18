@@ -71,12 +71,6 @@ namespace TodoApi.Controllers
                 return BadRequest();
             }
 
-            var existingItem = await _context.TodoItems.AsNoTracking().FirstOrDefaultAsync(t => t.Id == id);
-            if (existingItem == null)
-            {
-                return NotFound();
-            }
-
             _context.Entry(todoItem).State = EntityState.Modified;
 
             try

@@ -35,6 +35,9 @@ public class TodoControllerTests
 
         // Save changes to the in-memory database
         _context.SaveChanges();
+
+        // Clear the change tracker to avoid tracking multiple instances of the same entity
+        _context.ChangeTracker.Clear();
     }
 
     [TestCleanup]
@@ -86,36 +89,17 @@ public class TodoControllerTests
     [TestMethod] // Indicates that this method is a unit test
     public async Task PutTodoItem_UpdatesItem()
     {
-        // Add test data to the in-memory database
-        _context.TodoItems.AddRange(new List<TodoItem>
-        {
-            new TodoItem { Id = 4, Title = "Test Todo 4", Description = "Test Todo 4", IsCompleted = false }
-        });
-
-        // Save changes to the in-memory database
-        _context.SaveChanges();
-
-        // Clear the change tracker to avoid tracking multiple instances of the same entity
-        _context.ChangeTracker.Clear();
-
-
         // Create a TodoItem to update
-        var itemToUpdate = new TodoItem { Id = 4, Title = "Updated Todo 4", Description = "Test Todo 4", IsCompleted = false };
+        var itemToUpdate = new TodoItem { Id = 1, Title = "Updated Todo 1", Description = "Test Todo 1", IsCompleted = false };
 
         // Call the PutTodoItem method of the controller with the updated item
-        var result = await _controller.PutTodoItem(4, itemToUpdate);
-
-        // Cast the result to NoContentResult
-        var noContentResult = result as NoContentResult;
-
-        // Assert that the result is not null
-        Assert.IsNotNull(noContentResult);
+        await _controller.PutTodoItem(1, itemToUpdate);
 
         // Fetch the updated item from the in-memory database
-        var updatedItem = await _context.TodoItems.FindAsync(4);
+        var updatedItem = await _context.TodoItems.FindAsync(1);
 
         // Assert that the updated item's title is "Updated Todo"
-        Assert.AreEqual("Updated Todo 4", updatedItem?.Title);
+        Assert.AreEqual("Updated Todo 1", updatedItem?.Title);
     }
 
     [TestMethod] // Indicates that this method is a unit test

@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoApi.Data", "TodoApi.Dat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoApi.Tests", "TodoApi.Tests\TodoApi.Tests.csproj", "{3E2AF5EC-62CC-4507-9E56-0B8560A810AB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoApi.StubTests", "TodoApi.StubTests\TodoApi.StubTests.csproj", "{A5BEFEB2-8DD7-462A-893D-CCB0BCDC413F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{3E2AF5EC-62CC-4507-9E56-0B8560A810AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3E2AF5EC-62CC-4507-9E56-0B8560A810AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3E2AF5EC-62CC-4507-9E56-0B8560A810AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5BEFEB2-8DD7-462A-893D-CCB0BCDC413F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5BEFEB2-8DD7-462A-893D-CCB0BCDC413F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5BEFEB2-8DD7-462A-893D-CCB0BCDC413F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5BEFEB2-8DD7-462A-893D-CCB0BCDC413F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
