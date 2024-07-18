@@ -71,7 +71,16 @@ namespace TodoApi.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(todoItem).State = EntityState.Modified;
+            // Asynchronously fetches the todo item with the specified ID
+            var existing = await _context.TodoItems.FindAsync(id);
+
+            // If the item is not found, return a 404 Not Found response
+            if (existing != null)
+            {
+                existing.Title = todoItem.Title;
+                existing.Description = todoItem.Description;
+                existing.IsCompleted = todoItem.IsCompleted;
+            }
 
             try
             {

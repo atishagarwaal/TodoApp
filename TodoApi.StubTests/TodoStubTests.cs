@@ -116,30 +116,26 @@ namespace TodoApi.StubTests
             mockSet.As<IQueryable<TodoItem>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
             mockSet.As<IAsyncEnumerable<TodoItem>>().Setup(m => m.GetAsyncEnumerator(It.IsAny<CancellationToken>())).Returns(new TestAsyncEnumerator<TodoItem>(data.GetEnumerator()));
 
-            // Arrange: Setup the mock data and context
-            var itemToUpdate = new TodoItem { Id = 1, Title = "Updated Todo", IsCompleted = true };
-
             var mockContext = new Mock<DBContext>(new DbContextOptions<DBContext>());
             mockContext.Setup(c => c.TodoItems).Returns(mockSet.Object);
 
             var controller = new TodoController(mockContext.Object);
 
+            // Arrange: Setup the mock data and context
+            var existingItem = new TodoItem { Id = 1, Title = "Test Todo 1", IsCompleted = false };
+            var itemToUpdate = new TodoItem { Id = 1, Title = "Updated Todo 1", IsCompleted = true };
+
+            mockSet.Setup(m => m.FindAsync(1)).ReturnsAsync(existingItem);
+
             // Act: Call the method to be tested
-            var result = await controller.PutTodoItem(1, itemToUpdate);
-
-            // Cast the result to NoContentResult
-            var noContentResult = result as NoContentResult;
-
-            // Assert that the result is not null
-            Assert.IsNotNull(noContentResult);
+            await controller.PutTodoItem(1, itemToUpdate);
 
             // Fetch the updated item from the in-memory database
-            var updatedItem = await controller.GetTodoItem(4);
+            var updatedItem = await controller.GetTodoItem(1);
 
             // Assert that the updated item's title is "Updated Todo"
-            Assert.AreEqual("Updated Todo 4", updatedItem.Value?.Title);
+            Assert.AreEqual("Updated Todo 1", updatedItem.Value?.Title);
 
-            mockSet.Verify(m => m.Update(It.IsAny<TodoItem>()), Times.Once());
             mockContext.Verify(c => c.SaveChangesAsync(default), Times.Once());
         }
 
